@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 170" role="img" aria-labelledby="title">
+  <title id="title">Impact Print by Aicha</title>
+  <g aria-hidden="true">
+    <text x="25" y="138" fill="#171318" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="124" font-style="italic" font-weight="900">I</text>
+    <text x="62" y="138" fill="#171318" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="124" font-style="italic" font-weight="900">P</text>
+    <path fill="#ec2f86" d="M14 143c27 11 57 8 94-4 23-8 45-20 67-37l-7 18c-22 19-44 32-69 41-35 12-64 12-89-1z"/>
+    <path fill="#ffd43b" d="M20 143c25 7 51 5 84-5 23-8 45-20 66-36l-6 11c-22 16-44 28-67 36-30 10-56 12-78 5z"/>
+    <g>
+      <rect x="12" y="24" width="11" height="11" fill="#ec2f86"/>
+      <rect x="28" y="12" width="11" height="11" fill="#18a7d8"/>
+      <rect x="44" y="22" width="10" height="10" fill="#ffd43b"/>
+      <rect x="26" y="39" width="10" height="10" fill="#171318"/>
+      <rect x="43" y="39" width="10" height="10" fill="#ec2f86"/>
+      <rect x="10" y="54" width="10" height="10" fill="#18a7d8"/>
+      <rect x="27" y="55" width="10" height="10" fill="#ffd43b"/>
+    </g>
+  </g>
+  <text x="188" y="77" fill="#171318" font-family="Arial, Helvetica, sans-serif" font-size="59" font-style="italic" font-weight="800" letter-spacing="-2">impact</text>
+  <text x="320" y="125" fill="#ec2f86" font-family="Arial, Helvetica, sans-serif" font-size="53" font-style="italic" font-weight="900" letter-spacing="-2">Print</text>
+  <text x="365" y="155" fill="#171318" font-family="Georgia, serif" font-size="27" font-style="italic" font-weight="700">by Aicha</text>
+  <path d="M354 159c38 5 72-1 104-17" fill="none" stroke="#ec2f86" stroke-linecap="round" stroke-width="3"/>
+</svg>

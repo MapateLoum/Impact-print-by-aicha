@@ -1,69 +1,131 @@
-import Image from "next/image";
+import Link from "next/link";
+import { connection } from "next/server";
+import {
+  ArrowRight,
+  Bike,
+  MessageCircle,
+  PackageCheck,
+  PackageSearch,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
+import { getPublicCategories, getPublicProducts } from "@/lib/catalog-data";
+import { formatXof } from "@/lib/catalog";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 
-export default function Home() {
+export const instant = false;
+
+export default async function Home() {
+  await connection();
+  const [categories, products] = await Promise.all([
+    getPublicCategories(),
+    getPublicProducts(),
+  ]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main>
+      <section className="hero-shell">
+        <div className="hero-grid">
+          <div className="hero-copy">
+            <span className="eyebrow"><Sparkles size={15} /> Création & personnalisation à Dakar</span>
+            <h1>Vos idées prennent <em>forme.</em></h1>
+            <p>Impact print by Aicha imagine vos objets personnalisés et votre sélection de vêtements pour une marque qui se fait remarquer.</p>
+            <div className="hero-actions">
+              <Link className="button button-primary" href="/produits">
+                Découvrir nos produits <ArrowRight size={18} />
+              </Link>
+              <a className="button button-ghost" href={getWhatsAppUrl()}>
+                <MessageCircle size={18} /> Commander
+              </a>
+            </div>
+          </div>
+          <div className="hero-art" aria-label="Visuels démonstration">
+            <div className="hero-blob"></div>
+            <div className="hero-card hero-card-main">
+              <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85" alt="T-shirt démonstration" />
+              <span>PERSONNALISÉ</span>
+            </div>
+            <div className="hero-card hero-card-small">
+              <img src="https://images.unsplash.com/photo-1527863280617-15596f92e5c8?auto=format&fit=crop&w=600&q=85" alt="Sac démonstration" />
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="category-section section-wrap">
+        <div className="section-heading">
+          <div><span>Nos univers</span><h2>Tout pour vous démarquer</h2></div>
+          <Link href="/produits">Voir tout <ArrowRight size={16} /></Link>
         </div>
-      </main>
-    </div>
+        {categories.length > 0 ? (
+          <div className="category-grid">
+            {categories.map((category, index) => (
+              <Link href={`/produits?categorie=${encodeURIComponent(category.slug)}`} className="category-card" key={category.id}>
+                <div className={`category-number c${(index % 4) + 1}`}>0{index + 1}</div>
+                {category.imageUrl
+                  ? <img src={category.imageUrl} alt={category.name} />
+                  : <div className="category-placeholder"><PackageSearch size={42} /></div>}
+                <div><h3>{category.name}</h3><span>Découvrir <ArrowRight size={14} /></span></div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="empty-state">Les catégories seront affichées ici dès qu’elles seront ajoutées à la boutique.</div>
+        )}
+      </section>
+
+      <section className="products-section section-wrap">
+        <div className="section-heading">
+          <div><span>La collection</span><h2>Découvrez nos produits</h2></div>
+          <Link href="/produits">Toute la collection <ArrowRight size={16} /></Link>
+        </div>
+        {products.length > 0 ? (
+          <div className="product-grid">
+            {products.slice(0, 6).map((product) => {
+              const image = product.images[0];
+              return (
+                <Link href={`/produits/${product.slug}`} className="product-card" key={product.id}>
+                  <div className="product-media">
+                    {product.isFeatured && <span className="product-badge">En vedette</span>}
+                    {image
+                      ? <img src={image.url} alt={image.alt ?? product.name} />
+                      : <div className="product-placeholder"><PackageSearch size={48} /></div>}
+                  </div>
+                  <div className="product-info">
+                    <span className="product-category">{product.categoryName}</span>
+                    <h3>{product.name}</h3>
+                    <div className="product-bottom">
+                      <strong>{formatXof(product.price)}</strong>
+                      <span className="add-round"><ArrowRight size={17} /></span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="empty-state">
+            <PackageSearch size={28} />
+            <p>Aucun produit n’est encore publié. Revenez bientôt découvrir la collection.</p>
+          </div>
+        )}
+      </section>
+
+      <section className="benefits section-wrap">
+        <article><ShieldCheck /><div><h3>Qualité soignée</h3><p>Des finitions pensées pour durer.</p></div></article>
+        <article><PackageCheck /><div><h3>Personnalisation</h3><p>Vos textes, couleurs et logos.</p></div></article>
+        <article><Bike /><div><h3>Livraison organisée</h3><p>Avec votre livreur ou un partenaire de confiance.</p></div></article>
+      </section>
+
+      <section className="whatsapp-band">
+        <div>
+          <span>Une idée précise ?</span>
+          <h2>Parlons-en directement sur WhatsApp</h2>
+        </div>
+        <a href={getWhatsAppUrl("Bonjour Impact print by Aicha, je souhaite passer une commande.")}>
+          <MessageCircle /> Démarrer une conversation
+        </a>
+      </section>
+    </main>
   );
 }

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#171318"/>
+  <rect x="7" y="7" width="7" height="7" rx="2" fill="#ffd43b"/>
+  <text x="32" y="41" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-style="italic" font-weight="900" letter-spacing="-2" text-anchor="middle">IP</text>
+  <path d="M14 49c13 7 28 7 39-1" fill="none" stroke="#ec2f86" stroke-linecap="round" stroke-width="4"/>
+</svg>
