@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MessageCircle } from "lucide-react";
-import { getWhatsAppUrl } from "@/lib/whatsapp";
+import { getWhatsAppUrl, WHATSAPP_ORDER_MESSAGE } from "@/lib/whatsapp";
 
 export default function CheckoutPage() {
   return (
@@ -12,7 +12,7 @@ export default function CheckoutPage() {
         <p>Choisissez un produit, puis contactez la boutique sur WhatsApp pour convenir de la personnalisation, de la livraison et du paiement.</p>
         <div className="hero-actions">
           <Link className="button button-primary" href="/produits">Voir les produits</Link>
-          <a className="button button-ghost" href={getWhatsAppUrl()}>Ouvrir WhatsApp</a>
+          <a className="button button-ghost" href={getWhatsAppUrl(WHATSAPP_ORDER_MESSAGE)}>Ouvrir WhatsApp</a>
         </div>
       </div>
     </main>

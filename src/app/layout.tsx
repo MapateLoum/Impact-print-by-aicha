@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import { Mail, MapPin, Menu, Phone, Search, ShoppingBag, ShieldCheck, Camera, Users } from "lucide-react";
-import { getWhatsAppUrl } from "@/lib/whatsapp";
+import { getWhatsAppUrl, WHATSAPP_CONTACT_MESSAGE } from "@/lib/whatsapp";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,7 +33,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         className="site-body min-h-full flex flex-col"
         style={{ color: "var(--ink)", backgroundColor: "#fff", colorScheme: "light" }}
       >
-        <div className="demo-notice">Les produits viennent du catalogue de la boutique. Les photos du bandeau d’accueil sont provisoires.</div>
         <div className="top-strip">
           <div className="top-strip-inner">
             <div><span><Phone size={11} /> 77 220 30 48</span><span><Mail size={11} /> bbkdjo@icloud.com</span></div>
@@ -66,7 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <Link href="/produits" className="nav-highlight"><Menu size={16} /> Toutes les catégories</Link>
               <Link href="/">Accueil</Link>
               <Link href="/produits">Produits</Link>
-              <Link className="nav-contact" href={getWhatsAppUrl()}>Nous contacter</Link>
+              <Link className="nav-contact" href={getWhatsAppUrl(WHATSAPP_CONTACT_MESSAGE)}>Nous contacter</Link>
             </div>
           </nav>
         </header>
@@ -75,7 +74,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="footer-grid">
             <div><Link href="/" className="brand"><img src="/logo-impact-print.svg?v=3" alt="Impact Print by Aicha" /></Link><p>Imprimez vos idées, faites la différence — créations personnalisées et sélection du quotidien.</p></div>
             <div><h4>Produits</h4><div className="footer-links"><Link href="/produits">Tout voir</Link></div></div>
-            <div><h4>Service</h4><div className="footer-links"><Link href="/commande">Commander</Link><a href={getWhatsAppUrl()}>WhatsApp</a><Link href="/admin">Administration</Link><Link href="/suivi">Suivre une commande</Link></div></div>
+            <div><h4>Service</h4><div className="footer-links"><Link href="/commande">Commander</Link><a href={getWhatsAppUrl(WHATSAPP_CONTACT_MESSAGE)}>WhatsApp</a><Link href="/admin">Administration</Link><Link href="/suivi">Suivre une commande</Link></div></div>
             <div><h4>Nous joindre</h4><p>Dakar, Sénégal<br />77 220 30 48<br />bbkdjo@icloud.com</p><div className="header-actions"><a className="icon-button" href="#" aria-label="Instagram"><Camera size={16} /></a><a className="icon-button" href="#" aria-label="Facebook"><Users size={16} /></a></div></div>
           </div>
           <div className="copyright">© 2026 Impact print by Aicha. Tous droits réservés.</div>

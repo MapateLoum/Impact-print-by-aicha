@@ -117,7 +117,6 @@ img { max-width: 100%; }
 .whatsapp-band span { color:var(--yellow); text-transform:uppercase; letter-spacing:2px; font-size:11px; font-weight:900; }
 .whatsapp-band h2 { margin:8px 0 0; font-size:38px; }
 .whatsapp-band a { position:relative; z-index:2; height:52px; display:flex; align-items:center; gap:9px; background:var(--yellow); color:var(--ink); padding:0 18px; border-radius:7px; font-weight:900; }
-.demo-notice { background:#fff7c2; text-align:center; padding:7px; font-size:11px; }
 .site-footer { background:#f7f3f1; border-top:1px solid var(--line); }
 .footer-grid { width:min(1180px,calc(100% - 40px)); margin:auto; display:grid; grid-template-columns:2fr 1fr 1fr 1.2fr; gap:50px; padding:60px 0 40px; }
 .footer-grid h4 { margin:0 0 16px; font-size:13px; }
@@ -213,11 +212,9 @@ img { max-width: 100%; }
 .admin-login-card .button { width:100%; }
 .admin-back-link { align-self:center; color:#766d72; font-size:13px; font-weight:700; }
 .admin-back-link:hover { color:var(--pink); }
-body:has(.admin-login-page) .demo-notice,
 body:has(.admin-login-page) .top-strip,
 body:has(.admin-login-page) .site-header,
 body:has(.admin-login-page) .site-footer,
-body:has(.admin-page) .demo-notice,
 body:has(.admin-page) .top-strip,
 body:has(.admin-page) .site-header,
 body:has(.admin-page) .site-footer { display:none; }

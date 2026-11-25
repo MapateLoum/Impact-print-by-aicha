@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { getPublicCategories, getPublicProducts } from "@/lib/catalog-data";
 import { formatXof } from "@/lib/catalog";
-import { getWhatsAppUrl } from "@/lib/whatsapp";
+import { getWhatsAppUrl, WHATSAPP_ORDER_MESSAGE } from "@/lib/whatsapp";
 
 export const instant = false;
 
@@ -34,7 +34,7 @@ export default async function Home() {
               <Link className="button button-primary" href="/produits">
                 Découvrir nos produits <ArrowRight size={18} />
               </Link>
-              <a className="button button-ghost" href={getWhatsAppUrl()}>
+              <a className="button button-ghost" href={getWhatsAppUrl(WHATSAPP_ORDER_MESSAGE)}>
                 <MessageCircle size={18} /> Commander
               </a>
             </div>
@@ -122,7 +122,7 @@ export default async function Home() {
           <span>Une idée précise ?</span>
           <h2>Parlons-en directement sur WhatsApp</h2>
         </div>
-        <a href={getWhatsAppUrl("Bonjour Impact print by Aicha, je souhaite passer une commande.")}>
+        <a href={getWhatsAppUrl(WHATSAPP_ORDER_MESSAGE)}>
           <MessageCircle /> Démarrer une conversation
         </a>
       </section>
