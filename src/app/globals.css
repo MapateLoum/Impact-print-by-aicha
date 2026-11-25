@@ -242,6 +242,8 @@ body:has(.admin-page) .site-footer { display:none; }
 .admin-stat-card strong { margin-top:5px; font-size:27px; line-height:1; }
 .admin-stat-note { grid-column:2; color:#a1979c; font-size:10px; }
 .admin-section { padding-top:34px; }
+.admin-security-section { max-width:760px; }
+.admin-security-form > p { margin:0; color:#766d72; font-size:13px; line-height:1.6; }
 .admin-section-heading { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:18px; }
 .admin-section-heading > div > span { color:var(--pink); font-size:11px; font-weight:900; letter-spacing:1.5px; text-transform:uppercase; }
 .admin-section-heading h2 { margin:5px 0 0; font-size:30px; letter-spacing:-1px; }

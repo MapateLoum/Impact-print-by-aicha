@@ -117,6 +117,54 @@ export function AdminDashboard({
     router.refresh();
   }
 
+  async function handlePasswordChange(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setBusy(true);
+    setFeedback(null);
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const currentPassword = String(formData.get("current_password") ?? "");
+    const newPassword = String(formData.get("new_password") ?? "");
+    const passwordConfirmation = String(formData.get("password_confirmation") ?? "");
+
+    if (!email) {
+      reportError("Impossible de vérifier le mot de passe : l’adresse du compte est indisponible.");
+      return;
+    }
+    if (newPassword.length < 8) {
+      reportError("Le nouveau mot de passe doit contenir au moins 8 caractères.");
+      return;
+    }
+    if (newPassword !== passwordConfirmation) {
+      reportError("La confirmation ne correspond pas au nouveau mot de passe.");
+      return;
+    }
+    if (newPassword === currentPassword) {
+      reportError("Choisissez un nouveau mot de passe différent de l’ancien.");
+      return;
+    }
+
+    const supabase = createSupabaseBrowserClient();
+    const { error: verificationError } = await supabase.auth.signInWithPassword({
+      email,
+      password: currentPassword,
+    });
+    if (verificationError) {
+      reportError("L’ancien mot de passe est incorrect. Vérifiez-le et réessayez.");
+      return;
+    }
+
+    const { error: updateError } = await supabase.auth.updateUser({ password: newPassword });
+    if (updateError) {
+      reportError(`Le mot de passe n’a pas été modifié : ${updateError.message}`);
+      return;
+    }
+
+    form.reset();
+    reportSuccess("Mot de passe modifié avec succès.");
+  }
+
   async function handleCreateCategory(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setBusy(true);
@@ -410,6 +458,27 @@ export function AdminDashboard({
           <div><small>Stocks à surveiller</small><strong>{lowStockProductCount}</strong></div>
           <span className="admin-stat-note">Sous le seuil défini</span>
         </article>
+      </section>
+
+      <section className="admin-section admin-security-section" id="security">
+        <div className="admin-section-heading">
+          <div><span>Compte</span><h2>Sécurité du compte</h2></div>
+        </div>
+        <form className="admin-card admin-form admin-security-form" onSubmit={handlePasswordChange}>
+          <p>Confirmez votre mot de passe actuel, puis saisissez le nouveau deux fois.</p>
+          <label className="admin-field">Ancien mot de passe
+            <input name="current_password" type="password" autoComplete="current-password" required />
+          </label>
+          <div className="admin-form-row">
+            <label className="admin-field">Nouveau mot de passe
+              <input name="new_password" type="password" autoComplete="new-password" minLength={8} required />
+            </label>
+            <label className="admin-field">Confirmer le nouveau mot de passe
+              <input name="password_confirmation" type="password" autoComplete="new-password" minLength={8} required />
+            </label>
+          </div>
+          <button className="button button-primary" type="submit" disabled={busy}>Modifier le mot de passe</button>
+        </form>
       </section>
 
       <section className="admin-section">
